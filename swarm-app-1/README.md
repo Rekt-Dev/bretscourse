@@ -14,7 +14,7 @@ Nothing different about them other than that backend will help protect database 
 - The database server should use a named volume for preserving data.
 Use the new `--mount` format to do this: `--mount type=volume,source=db-data,target=/var/lib/postgresql/data`
 
-### Services (names below should be service names)
+### Services (names below should be service es)
 
 - vote
   - bretfisher/examplevotingapp_vote
