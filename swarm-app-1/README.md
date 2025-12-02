@@ -26,7 +26,109 @@ v8g8xh7hcgs0   frontend          overlay   swarm
 4211719a9c67   host              host      local
 vbequfbbenvy   ingress           overlay   swarm
 bvwi0f9rvurm   networkov         overlay   swarm
-87f93c03a2b2   none              null      local
+87f93c03a2b2   none              null      loca
+
+
+
+  docker service ls, docker service list
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Format output using a custom template:
+                        'table':            Print output in table format with column headers (default)
+                        'table TEMPLATE':   Print output in table format using the given Go template
+                        'json':             Print in JSON format
+                        'TEMPLATE':         Print output using the given Go template.
+                        Refer to https://docs.docker.com/go/formatting/ for more information about
+                        formatting output with templates
+  -q, --quiet           Only display IDs
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service ls -q
+q2l92r78fkoe
+7j068tcvac5o
+rc32mw7ldfmp
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service ls
+ID             NAME              MODE         REPLICAS   IMAGE                  PORTS
+q2l92r78fkoe   elasticsearch     replicated   0/3        elasticsearch:latest
+7j068tcvac5o   elasticsearchhh   replicated   3/3        elasticsearch:2        *:9200->9200/tcp
+rc32mw7ldfmp   vote              replicated   3/3        nginx:latest           *:80->80/tcp
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service create --name redis --network frontend --replica 3 redis:3.2
+unknown flag: --replica
+
+Usage:  docker service create [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Run 'docker service create --help' for more information
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service create --name redis --network frontend --replicas 3 redis:3.2
+ncsu16b6mrtelgq0q87drc4kl
+overall progress: 3 out of 3 tasks
+1/3: running   [==================================================>]
+2/3: running   [==================================================>]
+3/3: running   [==================================================>]
+verify: Service ncsu16b6mrtelgq0q87drc4kl converged
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service create --name redis --network frontend --replicas 3 redis:3.2
+
+
+Error response from daemon: rpc error: code = AlreadyExists desc = name conflicts with an existing object: service redis already exists
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service ps
+docker: 'docker service ps' requires at least 1 argument
+
+Usage:  docker service ps [OPTIONS] SERVICE [SERVICE...]
+
+See 'docker service ps --help' for more information
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service ls
+ID             NAME              MODE         REPLICAS   IMAGE                  PORTS
+q2l92r78fkoe   elasticsearch     replicated   0/3        elasticsearch:latest
+7j068tcvac5o   elasticsearchhh   replicated   3/3        elasticsearch:2        *:9200->9200/tcp
+ncsu16b6mrte   redis             replicated   3/3        redis:3.2
+rc32mw7ldfmp   vote              replicated   3/3        nginx:latest           *:80->80/tcp
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker serice rm redis
+docker: unknown command: docker serice
+
+Run 'docker --help' for more information
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service rm redis
+redis
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service ls
+ID             NAME              MODE         REPLICAS   IMAGE                  PORTS
+q2l92r78fkoe   elasticsearch     replicated   0/3        elasticsearch:latest
+7j068tcvac5o   elasticsearchhh   replicated   3/3        elasticsearch:2        *:9200->9200/tcp
+rc32mw7ldfmp   vote              replicated   3/3        nginx:latest           *:80->80/tcp
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service rm elasticsearch
+elasticsearch
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service ls
+ID             NAME              MODE         REPLICAS   IMAGE             PORTS
+7j068tcvac5o   elasticsearchhh   replicated   3/3        elasticsearch:2   *:9200->9200/tcp
+rc32mw7ldfmp   vote              replicated   3/3        nginx:latest      *:80->80/tcp
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service create  --name redis --network frontend --replicas 3 redis:3.2
+hz81un2853aek8zjfw1h0w88v
+overall progress: 3 out of 3 tasks
+1/3: running   [==================================================>]
+2/3: running   [==================================================>]
+3/3: running   [==================================================>]
+verify: Service hz81un2853aek8zjfw1h0w88v converged
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service ls
+ID             NAME              MODE         REPLICAS   IMAGE             PORTS
+7j068tcvac5o   elasticsearchhh   replicated   3/3        elasticsearch:2   *:9200->9200/tcp
+hz81un2853ae   redis             replicated   3/3        redis:3.2
+rc32mw7ldfmp   vote              replicated   3/3        nginx:latest      *:80->80/tcp
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service create --name worker --network frontend --network backend dockersamples/examplevotingapp_worker
+359zql8dee404tb1dw8zsvf0y
+overall progress: 1 out of 1 tasks
+1/1: running   [==================================================>]
+verify: Service 359zql8dee404tb1dw8zsvf0y converged
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service ls
+ID             NAME              MODE         REPLICAS   IMAGE                                          PORTS
+7j068tcvac5o   elasticsearchhh   replicated   3/3        elasticsearch:2                                *:9200->9200/tcp
+hz81un2853ae   redis             replicated   3/3        redis:3.2
+rc32mw7ldfmp   vote              replicated   3/3        nginx:latest                                   *:80->80/tcp
+359zql8dee40   worker            replicated   1/1        dockersamples/examplevotingapp_worker:latest
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker service create --name result --network backend -p 5001:80 dockersamples/examplevotingapp_result:before
+f0zfcja7btf8h8jh6t14618kz
+overall progress: 1 out of 1 tasks
+1/1: running   [==================================================>]
+verify: Service f0zfcja7btf8h8jh6t14618kz converged
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$
+
 ### Services (names below should be service es)
 
 - vote
