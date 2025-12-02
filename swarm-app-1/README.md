@@ -127,7 +127,12 @@ f0zfcja7btf8h8jh6t14618kz
 overall progress: 1 out of 1 tasks
 1/1: running   [==================================================>]
 verify: Service f0zfcja7btf8h8jh6t14618kz converged
-adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$
+adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1
+
+
+
+
+$
 
 ### Services (names below should be service es)
 
