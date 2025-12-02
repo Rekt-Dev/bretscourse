@@ -14,6 +14,19 @@ Nothing different about them other than that backend will help protect database 
 - The database server should use a named volume for preserving data.
 Use the new `--mount` format to do this: `--mount type=volume,source=db-data,target=/var/lib/postgresql/data`
 
+# adminov@ubuntuSVR1225DockerEngine:~/udemy-docker-mastery/swarm-app-1$ docker network ls
+NETWORK ID     NAME              DRIVER    SCOPE
+wzczwuo4zwsf   backend           overlay   swarm
+304fd775270c   bridge            bridge    local
+8365bac9f23c   docker_gwbridge   bridge    local
+r0nia9wynhxv   elastinet         overlay   swarm
+4yh8i4ub0wfa   elastinettt       overlay   swarm
+4xq14kwdrfob   es-net            overlay   swarm
+v8g8xh7hcgs0   frontend          overlay   swarm
+4211719a9c67   host              host      local
+vbequfbbenvy   ingress           overlay   swarm
+bvwi0f9rvurm   networkov         overlay   swarm
+87f93c03a2b2   none              null      local
 ### Services (names below should be service es)
 
 - vote
