@@ -23,6 +23,8 @@ Use the new `--mount` format to do this: `--mount type=volume,source=db-data,tar
   - on frontend network
   - 2+ replicas of this container
 
+    docker service create --name vote -p 80:80 --network frontend --replica 2 dockersamples/examplevotingapp_vote:before
+
 - redis
   - redis:3.2
   - key-value storage for incoming votes
