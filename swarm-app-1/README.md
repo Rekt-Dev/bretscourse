@@ -261,4 +261,60 @@ You now know that some “official” materials or images can be unreliable—va
 
 Takeaway
 
-Even though you couldn’t make the broken image work, you learned more than most students do in “perfect” setups. That troubleshooting experience is rare and extremely valuable—it will stick with you in future projects and jobs.
+Even though you couldn’t make the broken image work, you learned more than most students do in “perfect” setups. That troubleshooting experience is rare and extremely valuable—it will stick with you in future projects and jobs
+
+
+ChatGPT said:
+
+Here’s a tight refresher for Docker Compose, just the essentials:
+
+1. Start / Stop / Restart
+
+docker-compose up          # start all services
+docker-compose up -d       # start in detached mode
+docker-compose down        # stop & remove containers, networks
+docker-compose restart     # restart services
+
+
+2. Build / Rebuild
+
+docker-compose build       # build images
+docker-compose up --build  # rebuild then start
+
+
+3. View Logs
+
+docker-compose logs        # all logs
+docker-compose logs -f     # follow logs live
+docker-compose logs <service>
+
+
+4. Run commands in a container
+
+docker-compose exec <service> sh   # shell into a service
+docker-compose exec <service> <cmd>
+
+
+5. List / Clean
+
+docker-compose ps           # see running services
+docker-compose down -v      # also remove volumes
+
+
+6. Quick Compose YAML mindset
+
+version: "3"
+services:
+  web:
+    image: myweb
+    ports:
+      - "5000:5000"
+    environment:
+      - ENV_VAR=value
+  db:
+    image: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:.
