@@ -1,5 +1,23 @@
 # Assignment: Create A Multi-Service Multi-Node Web App
 
+docker network create -d overlay backend
+
+docker network create -d overlay frontend 
+
+docker service create --name vote -p 80:80 --network frontend --replicas 2 dockersamples/examplevotingapp_vote:before
+
+docker service create --name redis --network frontend --replicas 2 redis:3.2
+
+docker service create --name worker --network frontend --network backend dockersamples/examplevotingapp_vote:before
+
+docker service create --name db --network backend --mount type=volume,source=db-data,target=/var/lib/postgresql/data postgres:latest
+
+docker service create --name result --network backend -p 5001:80 dockersamples/examplevotingapp_vote:before
+
+
+
+
+
 ## Goal: create networks, volumes, and services for a web-based "cats vs. dogs" voting app
 
 Here is a basic diagram of how the 5 services will work:
@@ -317,4 +335,9 @@ services:
       - db-data:/var/lib/postgresql/data
 
 volumes:
-  db-data:.
+  db-data
+
+
+
+
+:.
