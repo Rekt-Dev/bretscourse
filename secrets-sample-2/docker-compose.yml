@@ -1,5 +1,5 @@
 version: "3.9"
-
+  # version must be higher than 3.1 to use secrets wth stax
 services:
   psql:
     image: postgres
@@ -9,7 +9,10 @@ services:
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/psql_password
       POSTGRES_USER_FILE: /run/secrets/psql_user
-
+        # 2 ways to create secrets :
+          # using a file for each secret
+          # have the secret pre-created (cli or api)
+          # assign the secrets to te service post config  
 secrets:
   psql_user:
     file: ./psql_user.txt
