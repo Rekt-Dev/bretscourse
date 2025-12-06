@@ -17,6 +17,19 @@ docker service create --name result --network backend -p 5001:80 dockersamples/e
 
 
 
+\----------------------------
+
+# NEW UPDATES TO SWARM - EPISODE 100ISH BRETS:
+
+- just update the image to a newer version :
+    docker service update --image myapp:12.1 <servicename>
+
+- adding an env var and removign a port:
+    docker service update --env-add NODE_ENV=production --publish-rm 8080
+
+- change number of replicas of 2 services:
+    docker service scale web=6 api=12
+
 
 ## Goal: create networks, volumes, and services for a web-based "cats vs. dogs" voting app
 
