@@ -14,7 +14,26 @@ docker service create --name db --network backend --mount type=volume,source=db-
 
 docker service create --name result --network backend -p 5001:80 dockersamples/examplevotingapp_vote:before
 
+# some more commands,1 swarm and a few registry related:
 
+- docker container run --name ppsssspp2 -d --health-cmd="pg_isready"-e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_USER=myuser -e POSTGRES_DB=mydb -p 5432:5432 || exit 1  postgres:11
+
+- run the registry image : 
+    docker container run -d -p 5000:5000 --name registry registry
+
+- retag an existing image and push it 2 ur new registry 
+    docker tag hello-world 127.0.0.1:5000/hello-world
+    docker push 127.0.0.1:5000/hello-world
+
+- remove that image from local cache and pull it from new registry:
+    docker image remove hello-world   ----> local cache
+    dcoker image remove 127.0.0.1:5000/hello-world     localhost installed registry
+    docker pull 127.0.0.1:5000/hello-world
+
+
+- recreate registry using a bind mount and c how it stores data :
+    docker container run -d --p 5000:5000 --name registry -v
+    $(pwd)/registry-data:/var/lib/registry registry
 
 
 \----------------------------
@@ -30,6 +49,8 @@ docker service create --name result --network backend -p 5001:80 dockersamples/e
 - change number of replicas of 2 services:
     docker service scale web=6 api=12
 
+- swarm updates om stack files:
+    same command just edit the yaml file. then: docker stack deploy -c file.yml <stackname>
 
 ## Goal: create networks, volumes, and services for a web-based "cats vs. dogs" voting app
 
